@@ -2,8 +2,8 @@ package controller
 
 import (
 	"encoding/json"
+	"github.com/aiwantaozi/go_http/configs"
 	"net/http"
-	"project/configs"
 )
 
 type JsonResponse struct {
