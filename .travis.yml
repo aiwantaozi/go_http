@@ -11,8 +11,11 @@ install:
   
 
 script:
+  - echo "begin"
   - go run command/main.go
+  - echo "begin ping"
   - checkHealth "http://localhost:8082/ping"
+  - echo "finished ping"
 
 notifications:
   email:
