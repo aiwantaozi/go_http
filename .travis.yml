@@ -7,7 +7,7 @@ services:
 
 env:
   global:
-    - DOCKER_IMAGE="golang:1.6-onbuild"
+    - DOCKER_IMAGE="golang:1.6"
     - DOCKER_TAG="${TRAVIS_BRANCH//\//_}.${TRAVIS_BUILD_NUMBER}"
 
 before_install:
@@ -20,8 +20,8 @@ script:
   # run test
   # - make test
   # dist and build docker image
-  - docker images
   - docker build -t $DOCKER_IMAGE:latest .
+  - docker images
 
   - docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:$DOCKER_TAG
   # run container
