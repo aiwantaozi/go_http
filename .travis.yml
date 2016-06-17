@@ -1,7 +1,7 @@
 # sudo: true
 language: go
 go:
-  - 1.6.2
+  - 1.6
 services:
   - docker
 
@@ -11,13 +11,12 @@ env:
     - DOCKER_TAG="${TRAVIS_BRANCH//\//_}.${TRAVIS_BUILD_NUMBER}"
 
 before_install:
-  # print go version
-  - export GO15VENDOREXPERIMENT=1
-
   - go version && go env
   # include functions
   - curl -sSL -o /tmp/ci_functions https://raw.githubusercontent.com/westmisfit/ci_functions/1.0.2/functions.sh; source /tmp/ci_functions
-
+install:
+  - go get github.com/tools/godep
+  - godep restore ./...
 
 script:
   # run test
