@@ -7,7 +7,7 @@ services:
 
 env:
   global:
-    - DOCKER_IMAGE="golang:1.6"
+    - DOCKER_IMAGE="misfit/go_http"
     - DOCKER_TAG="${TRAVIS_BRANCH//\//_}.${TRAVIS_BUILD_NUMBER}"
 
 before_install:
@@ -15,6 +15,7 @@ before_install:
   - go version && go env
   # include functions
   - curl -sSL -o /tmp/ci_functions https://raw.githubusercontent.com/westmisfit/ci_functions/1.0.2/functions.sh; source /tmp/ci_functions
+
 
 script:
   # run test
