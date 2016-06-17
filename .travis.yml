@@ -2,20 +2,43 @@
 language: go
 go:
   - 1.6.2
+services:
+  - docker
+
+env:
+  global:
+    - DOCKER_IMAGE="golang:1.6-onbuild"
+    - DOCKER_TAG="${TRAVIS_BRANCH//\//_}.${TRAVIS_BUILD_NUMBER}"
 
 before_install:
   # print go version
   - go version && go env
+  # include functions
   - curl -sSL -o /tmp/ci_functions https://raw.githubusercontent.com/westmisfit/ci_functions/1.0.2/functions.sh; source /tmp/ci_functions
-install:
-  
 
 script:
-  - echo "begin"
-  - go run command/main.go
-  - echo "begin ping"
+  # run test
+  # - make test
+  # dist and build docker image
+  - >
+    make build &&
+    docker build -t $DOCKER_IMAGE:latest . &&
+    docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:$DOCKER_TAG
+  # run container
+  - docker run -d --name=webserver --net=host $DOCKER_IMAGE:$DOCKER_TAG
+  # test ping, try 5 times, like ELB Unhealthy Thresold
   - checkHealth "http://localhost:8082/ping"
-  - echo "finished ping"
+  # print docker logs
+  - docker ps && docker logs webserver
+
+before_deploy:
+  # push docker image
+  - docker push $DOCKER_IMAGE:$DOCKER_TAG
+
+cache:
+  directories:
+    - $HOME/vendor/go
+    - $HOME/vendor/docker_images
 
 notifications:
   email:
