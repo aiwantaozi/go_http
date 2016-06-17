@@ -12,6 +12,8 @@ env:
 
 before_install:
   # print go version
+  - export GO15VENDOREXPERIMENT=1
+
   - go version && go env
   # include functions
   - curl -sSL -o /tmp/ci_functions https://raw.githubusercontent.com/westmisfit/ci_functions/1.0.2/functions.sh; source /tmp/ci_functions
