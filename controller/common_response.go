@@ -42,7 +42,7 @@ func ResderResponseCollection(w http.ResponseWriter, r *http.Request, data inter
 	json.NewEncoder(w).Encode(res)
 }
 
-func RenderResponseAppError(w http.ResponseWriter, appError *pkgdir.AppError) {
+func RenderResponseAppError(w http.ResponseWriter, appError *configs.AppError) {
 	errorResponse := JsonResponse{
 		Status:  appError.Status,
 		Code:    appError.Code,
