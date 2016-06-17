@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/aiwantaozi/go_http/controllers"
+	"github.com/aiwantaozi/go_http/controller"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
