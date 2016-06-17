@@ -10,7 +10,7 @@ import (
 func HandleRequests() {
 
 	router := httprouter.New()
-	router.GET("/ping", controllers.TestPingHandler)
+	router.GET("/ping", controller.TestPingHandler)
 	log.Fatal(http.ListenAndServe(":8082", router))
 }
 

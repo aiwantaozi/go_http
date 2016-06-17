@@ -1,4 +1,4 @@
-package pkgdir
+package configs
 
 import (
 	"errors"

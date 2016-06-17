@@ -3,7 +3,7 @@ package controller
 import (
 	"encoding/json"
 	"net/http"
-	"project/pkgdir"
+	"project/configs"
 )
 
 type JsonResponse struct {
