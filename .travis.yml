@@ -20,10 +20,10 @@ script:
   # run test
   # - make test
   # dist and build docker image
-  - >
-    docker images
-    docker build -t $DOCKER_IMAGE:latest . &&
-    docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:$DOCKER_TAG
+  - docker images
+  - docker build -t $DOCKER_IMAGE:latest .
+
+  - docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:$DOCKER_TAG
   # run container
   - docker run -d --name=webserver --net=host $DOCKER_IMAGE:$DOCKER_TAG
   # test ping, try 5 times, like ELB Unhealthy Thresold
