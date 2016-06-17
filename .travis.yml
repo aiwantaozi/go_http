@@ -1,0 +1,20 @@
+# sudo: true
+language: go
+go:
+  - 1.6.2
+
+before_install:
+  # print go version
+  - go version && go env
+
+install:
+  
+
+script:
+  - go run command/main.go
+  - curl -X GET "http://localhost:8082/ping"
+
+notifications:
+  email:
+    recipients:
+      - michelia@fossil.com
