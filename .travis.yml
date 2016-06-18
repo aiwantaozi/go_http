@@ -15,7 +15,7 @@ before_install:
   # include functions
   - curl -sSL -o /tmp/ci_functions https://raw.githubusercontent.com/westmisfit/ci_functions/1.0.2/functions.sh; source /tmp/ci_functions
 install:
-  - go get github.com/tools/godep
+  - go get github.com/tools/godep 
   - godep restore ./...
 
 script:
@@ -26,8 +26,9 @@ script:
   - docker images
 
   - docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:$DOCKER_TAG
+
   # run container
-  - docker run -d --name=webserver --net=host $DOCKER_IMAGE:$DOCKER_TAG
+  - docker run -d --name=webserver --net=host  -v "$GOPATH":/gopath -e "GOPATH=/gopath" $DOCKER_IMAGE:$DOCKER_TAG
   # test ping, try 5 times, like ELB Unhealthy Thresold
   - checkHealth "http://localhost:8082/ping"
   # print docker logs
